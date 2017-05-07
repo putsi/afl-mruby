@@ -14,4 +14,4 @@ echo core >/proc/sys/kernel/core_pattern
 (cd /sys/devices/system/cpu && echo performance | tee cpu*/cpufreq/scaling_governor)
 
 # Start the fuzzer and use testcases- and results-dir from local host directory.
-docker run -t -v $(pwd)/testcases:/testcases -v $(pwd)/results:/results afl-mruby
+docker run -t -v $(pwd)/testcases:/testcases -v /dev/shm:/results afl-mruby

@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
   // Lets make it persistent.
   // This increases speed from 90/s to ~1200/s.
-  while(__AFL_LOOP(5000))
+  while(__AFL_LOOP(1000))
   {
     FILE *f = fopen(argv[1], "r");
     mrb_load_file(mrb, f);

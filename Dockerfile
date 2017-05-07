@@ -43,6 +43,6 @@ RUN cd mrbgems/mruby-bin-mruby/tools/mruby/ && rm -rf mruby.c && mv stub.c mruby
 RUN AFL_HARDEN=1 ASAN_OPTIONS=detect_leaks=0 ./minirake
 
 # Add fuzzer-script and set it as entrypoint.
-WORKDIR /mruby/bin
-ADD fuzz.sh fuzz.sh
+WORKDIR /results
+ADD fuzz.sh /mruby/bin/fuzz.sh
 ENTRYPOINT ["/mruby/bin/fuzz.sh"]
