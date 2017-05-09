@@ -21,8 +21,12 @@ done
 echo "Done, starting status screen!"
 
 # Loop afl-whatsup so that statistics can be viewed and container does not exit.
+# Also run crashwalk so that new crashes will be triaged automatically.
+cd /results
 while true; do
   clear && echo && date && echo && echo
   afl-whatsup -s /results
   sleep 5
+  /root/gopath/bin/cwtriage -afl -root .
+  /root/gopath/bin/cwdump ./crashwalk.db > triage.txt
 done
