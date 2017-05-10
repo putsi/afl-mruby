@@ -24,8 +24,12 @@ RUN apt-get update && apt-get -y install \
 # Install gdb-peda and exploitable and crashwalk.
 RUN git clone https://github.com/longld/peda.git /root/peda && echo "source ~/peda/peda.py" >> /root/.gdbinit
 RUN echo "export GOPATH=/root/gopath" >> /root/.bashrc
-RUN mkdir /root/src && cd /root/src && git clone https://github.com/jfoote/exploitable.git && cd exploitable \
-    && python setup.py install && echo "source /usr/local/lib/python2.7/dist-packages/exploitable-1.32-py2.7.egg/exploitable/exploitable.py" >> /root/.gdbinit
+RUN mkdir /root/src && cd /root/src && git clone https://github.com/jfoote/exploitable.git
+WORKDIR /root/src/exploitable
+# Modify exploitable.py a bit so that we can see source code files and lines in stacktrace instead of the binary location.
+# "function at /mruby/src/array.c:212" is a lot more interesting detail than "function at /results/mruby".
+RUN sed -i 's/self.mapped_region.name if self.mapped_region else "?"/(self.gdb_frame.find_sal().symtab.filename+":"+str(self.gdb_frame.find_sal().line))/g' ./exploitable/lib/gdb_wrapper/x86.py
+RUN python setup.py install && echo "source /usr/local/lib/python2.7/dist-packages/exploitable-1.32-py2.7.egg/exploitable/exploitable.py" >> /root/.gdbinit
 RUN export GOPATH=/root/gopath && go get -u github.com/bnagy/crashwalk/cmd/...
 
 # Get latest version AFL-Fuzzer and install with llvm_mode.
