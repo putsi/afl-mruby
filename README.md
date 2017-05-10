@@ -2,7 +2,7 @@
 
 * [MRuby](https://github.com/mruby/mruby) fuzzer that runs inside Docker-container (Ubuntu 17.04).
 * Fuzzing is done with [AFL-Fuzzer](http://lcamtuf.coredump.cx/afl/) and uses llvm-mode with LLVM/CLANG 4.0.
-* Supports AddressSanitizer (enable manually in build_config.rb).
+* Supports AddressSanitizer.
 * Fuzzer stub is afl-persistent --> Runs 1000 testcases per one process cycle.
 * Fuzzing is done mostly in ramdisk, thus no hdd bottlenecks.
 * Automatic triaging of new crashes with [crashwalk](https://github.com/bnagy/crashwalk).

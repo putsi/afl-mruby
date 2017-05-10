@@ -1,5 +1,5 @@
 MRuby::Toolchain.new(:afl) do |conf, _params|
-  toolchain :gcc
+  toolchain :gcc # Use gcc as a baseline
 
   [conf.cc, conf.objc, conf.asm].each do |cc|
     cc.command = ENV['CC'] || 'afl-clang-fast'
@@ -14,8 +14,8 @@ MRuby::Build.new do |conf|
   toolchain :afl
 
   # Enable below for AddressSanitizer-support.
-#  conf.cc.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
-#  conf.linker.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
+####conf.cc.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
+####conf.linker.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
 
   enable_debug
   conf.gembox 'default'
