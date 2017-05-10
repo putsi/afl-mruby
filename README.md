@@ -1,14 +1,28 @@
-# MRuby fuzzer
+# MRuby fuzzer environment
 
-* MRuby fuzzer that runs inside Ubuntu 17.04 container.
-* Fuzzing is done with AFL-Fuzzer that uses llvm-mode with LLVM and CLANG version 4.0.
-* Fuzzer stub is afl-persistent --> 5000 testcases per one process cycle.
+* MRuby fuzzer that runs inside Docker-container (Ubuntu 17.04).
+* Fuzzing is done with [AFL-Fuzzer](http://lcamtuf.coredump.cx/afl/) and uses llvm-mode with LLVM/CLANG 4.0.
+* Supports AddressSanitizer (enable manually in build_config.rb).
+* Fuzzer stub is afl-persistent --> Runs 1000 testcases per one process cycle.
+* Fuzzing is done mostly in ramdisk, thus no hdd bottlenecks.
+* Automatic triaging of new crashes with [crashwalk](https://github.com/bnagy/crashwalk).
+* Built-in multi-core support. Automatically starts 1 AFL master instance and CPU_CORE_COUNT-1 slave instances. 
 
 ## How to use
 
 1. Clone the repo.
 2. Open the repo directory and run `mkdir testcases`.
 3. Copy initial testcases to testcases-directory.
-  * These can be for example be obtained from reported MRuby Github Issues by using the get_testcases_from_github_issues.py
+    * If you don't have any, run get_testcases_from_github_issues.py. It will fetch testcases (markdown code blocks) from MRuby Github issues.
 4. Run `./runme.sh` to start fuzzing.
-5. The fuzzer will now start as many fuzzing-instances as the Docker host has CPU-cores. The instances will load initial testcases from the host-machine testcases-directory and will save all output (incl. fuzzer binary) to host-machine /dev/shm directory.
+5. The script will build the container, configure required host machine values and launch fuzzer container. 
+    * The fuzzer will load initial testcases from the host-machine testcases-directory and will save all output (incl. fuzzer binary) to host-machine /dev/shm directory (ramdisk).
+
+## TODO
+* Add support for locating the commit that introduced a crash (git bisect?).
+* Automatically create Markdown-reports that contain
+    * Testcase (base64-encoded).
+    * Crashwalk trace.
+    * Commit that introduced the crash.
+    * ???
+* Add support for deduplicating crashes (search existing issue from Github).
