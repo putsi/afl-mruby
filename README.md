@@ -28,4 +28,5 @@
     * Commit that introduced the crash.
     * ???
 * Add support for deduplicating crashes (search existing issue from Github).
+* Add support for minimizing and saving new corpus.
 * Add more lists to readme.
