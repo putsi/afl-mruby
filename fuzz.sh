@@ -27,6 +27,6 @@ while true; do
   clear && echo && date && echo && echo
   afl-whatsup -s /results
   sleep 5
-  /root/gopath/bin/cwtriage -afl -root .
+  /root/gopath/bin/cwtriage -workers $(nproc) -tidy -afl -root .
   /root/gopath/bin/cwdump ./crashwalk.db > triage.txt
 done

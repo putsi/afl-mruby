@@ -14,8 +14,8 @@ MRuby::Build.new do |conf|
   toolchain :afl
 
   # Enable below for AddressSanitizer-support.
-####conf.cc.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
-####conf.linker.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
+#conf.cc.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
+#conf.linker.flags << '-fsanitize=address -fno-omit-frame-pointer -fPIC'
 
   enable_debug
   conf.gembox 'default'
