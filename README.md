@@ -19,6 +19,9 @@
     * The fuzzer will load initial testcases from the host-machine testcases-directory and will save all output (incl. fuzzer binary) to host-machine /dev/shm directory (ramdisk).
     * When the fuzzer is running, container shows a status screen (afl-whatsup) which has basic info about the afl-fuzzers.
     * New crashes are triaged couple times per minute and saved to crashwalk database. A text-based log of unique crashes can be found in results-directory.
+6. Optionally for additional triaging, run `docker exec -it CONTAINER_ID /mruby/bin/triage_online.sh`.
+    * This will submit all deduplicated crashes from crashwalk database to online sandbox (https://mruby.science/runs).
+    * If the online sandbox fails execution (NO RESULT / NO MEMORY / NO INSTRUCTIONS), the testcase most likely crashes mruby universally and is not a false positive.
 
 ## TODO
 * Add support for locating the commit that introduced a crash (git bisect?).

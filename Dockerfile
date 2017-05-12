@@ -54,6 +54,10 @@ ADD stub.c mrbgems/mruby-bin-mruby/tools/mruby/stub.c
 RUN cd mrbgems/mruby-bin-mruby/tools/mruby/ && rm -rf mruby.c && mv stub.c mruby.c
 RUN AFL_HARDEN=1 ASAN_OPTIONS=detect_leaks=0 ./minirake
 
+# Add utilities for triaging crashes at https://mruby.science
+ADD triage_online.py /mruby/bin/triage_online.py
+ADD triage_online.sh /mruby/bin/triage_online.sh
+
 # Add fuzzer-script and set it as entrypoint.
 WORKDIR /results
 ADD fuzz.sh /mruby/bin/fuzz.sh
