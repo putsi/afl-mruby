@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ `whoami` != root ]; then
+    echo "The script requires sudo/root!"
+    exit
+fi
 
 read -p "DANGEROUS! Wipe Docker images and containers (y/n)? " WIPE
 case "$WIPE" in
