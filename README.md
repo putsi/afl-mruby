@@ -17,7 +17,7 @@
 4. Run `./runme.sh` to start fuzzing.
 5. The script will build the container, configure required host machine values and launch fuzzer container. 
     * The fuzzer will load initial testcases from the host-machine `testcases`-directory and will save all output (incl. fuzzer binary) to host-machine `/dev/shm` directory (ramdisk).
-    * When the fuzzer is running, container shows a status screen (`afl-whatsup`) which has basic info about the AFL-fuzzers.
+    * When the fuzzer is running, container shows a status screen (`afl-whatsup`) which has basic info about the AFL-fuzzers.
     * New crashes are triaged couple times per minute and saved to crashwalk database. A text-based log of unique crashes can be found in results-directory.
 6. Optionally for additional triaging, run `docker exec -it CONTAINER_ID /mruby/bin/triage_online.sh`.
     * This will submit all deduplicated crashes from crashwalk database to online sandbox (https://mruby.science/runs).
